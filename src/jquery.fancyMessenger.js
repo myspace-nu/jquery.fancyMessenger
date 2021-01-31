@@ -16,6 +16,11 @@
                 sent:'Message sent!',
                 invalidEmail:'Invalid e-mail!'
             },
+            available: {
+                timezone:"Europe/Stockholm",
+                fromHour:0,
+                untilHour:0
+            },
             closeOnSend:true,
             onSend:function(){ }
         }, options);
@@ -34,7 +39,7 @@
         if(!this.length){
             $(fancyMarkup).css({position: "fixed", bottom: "20px", right: "20px" });
         }
-        if(new Date().getUTCHours()<8+getTimezoneOffset(new Date,"Europe/Stockholm")/60 || new Date().getUTCHours()>=16+getTimezoneOffset(new Date,"Europe/Stockholm")/60){
+        if(new Date().getUTCHours()<settings.available.fromHour+getTimezoneOffset(new Date,settings.available.timezone)/60 || new Date().getUTCHours()>=settings.available.untilHour+getTimezoneOffset(new Date,settings.available.timezone)/60){
             $(fancyMarkup).find('.fancyMessenger-available').hide();
         }
 		fancyParent.each(function() {
