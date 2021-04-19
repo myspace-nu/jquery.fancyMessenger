@@ -14,7 +14,8 @@
                 heading:'Send us a message!',
                 body:'<form><input class="form-control form-control-sm" type="email" placeholder="Your e-mail address" /><textarea class="form-control form-control-sm" placeholder="Your message"></textarea><button class="btn btn-light btn-sm">Send</button></form>',
                 sent:'Message sent!',
-                invalidEmail:'Invalid e-mail!'
+                invalidEmail:'Invalid e-mail!',
+                sendError:'Error sending message!'
             },
             available: {
                 timezone:"Europe/Stockholm",
@@ -22,7 +23,7 @@
                 untilHour:0
             },
             closeOnSend:true,
-            onSend:function(){ }
+            onSend:function(){ return true; }
         }, options);
         var getTimezoneOffset = function (d, tz) {
             const a = d.toLocaleString("ja", {timeZone: tz}).split(/[/\s:]/);
@@ -44,11 +45,11 @@
         }
 		fancyParent.each(function() {
             var thisElm = $(this);
-            var inserted = fancyMarkup.appendTo(thisElm);
-            $(inserted).first().find('button').click(function(event){
+            var fancyElm = fancyMarkup.appendTo(thisElm);
+            $(fancyElm).first().find('button').click(function(event){
                 event.preventDefault();
                 var errors=0;
-                $(inserted).find("input[type=email]").each(function() {
+                $(fancyElm).find("input[type=email]").each(function() {
                     if(!$(this).val() || !$(this)[0].validity.valid){
                         $(this).closest(".fancyMessenger").find(".fancyMessenger-info").html(settings.text.invalidEmail).fadeIn(600).delay(3000).fadeOut(600);
                         errors++;
@@ -56,7 +57,10 @@
                 });
                 if(errors)
                     return false;
-                settings.onSend(inserted);
+                if(!settings.onSend(fancyElm)){
+                    $(this).closest(".fancyMessenger").find(".fancyMessenger-info").html(settings.text.sendError).fadeIn(600).delay(3000).fadeOut(600);
+                    return false;
+                }
                 if(settings.closeOnSend){
                     $(this).closest(".fancyMessenger").find(".fancyMessenger-body").hide();
                     $(this).closest(".fancyMessenger").find(".fancyMessenger-text").hide();
@@ -66,11 +70,11 @@
                 }
                 $(this).closest(".fancyMessenger").find(".fancyMessenger-info").html(settings.text.sent).fadeIn(600).delay(3000).fadeOut(600);
             });
-            $(inserted).find(".fancyMessenger-header").click(function(event){
+            $(fancyElm).find(".fancyMessenger-header").click(function(event){
                 event.stopPropagation();
                 $(this).closest(".fancyMessenger").find(".fancyMessenger-body").toggle();
             });
-            $(inserted).find('.fancyMessenger-avatar').click(function(event){
+            $(fancyElm).find('.fancyMessenger-avatar').click(function(event){
                 event.stopPropagation();
                 $(this).closest(".fancyMessenger").find(".fancyMessenger-text").toggle();
                 if($(this).closest(".fancyMessenger").find(".fancyMessenger-text").is(":hidden")){
