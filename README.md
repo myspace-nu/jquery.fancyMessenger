@@ -4,6 +4,8 @@ A simple jQuery plugin for creating a website messenger.
 
 [![Build Status](https://travis-ci.com/myspace-nu/jquery.fancyMessenger.svg?branch=main)](https://travis-ci.com/myspace-nu/jquery.fancyMessenger)
 [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/myspace-nu/jquery.fancyMessenger/blob/master/LICENSE)
+[![Code size](https://img.shields.io/github/languages/code-size/myspace-nu/jquery.fancyMessenger)](https://github.com/myspace-nu/jquery.fancyMessenger)
+[![Issues](https://img.shields.io/github/issues-raw/myspace-nu/jquery.fancyMessenger)](https://github.com/myspace-nu/jquery.fancyMessenger/issues)
 
 ## Live demo
 
